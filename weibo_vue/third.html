@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评论用户所使用的手机分析</title>
+    <script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/series-label.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/oldie.js"></script>
+    <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="div1" style="max-width:800px;height:650px;	margin: 0 auto;"></div>
+<script>
+    new Vue({
+        el:"#div1",
+        data(){
+            return {
+                data:null
+            }
+        },
+        mounted(){
+            const instance = axios({
+                post:'get',
+                url:'http://192.168.0.121:12580/weibo/phonebi'
+            })
+            instance.then(function (response){
+                console.log(response.data.data)
+                let data = response.data.data
+                Highcharts.chart('div1',{
+                    chart:{
+                        plotShadow:false,
+                        type:'pie'
+                    },
+                title:{
+                    text:'肖战某条微博评论用户手机组成',
+                    textColor:'blue'
+                },
+                tooltip:{
+                    ponitFormat:'{series.name}:<b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions:{
+                    pie:{
+                        allowPointSelect:true,
+                        cursor:'pointer',
+                        dataLables:{
+                            enabled:true,
+                            fromat: '<b>{point.name}</b>:{ponit.percentage*100:.1f}%',
+                            sytle: {
+                                color:(Highcharts.theme &&
+                                Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        },
+                        showInLegend:true
+                    }
+                },
+                series:[{
+                    name:'占比',
+                    colorByPoint:true,
+                    data:data
+                }]
+                });
+
+            })
+        }
+    })
+
+</script>
+
+
+
+
+
+<div id="div3" style="position:fixed; bottom:0;left: 720px;">
+    <a id="a1" href="/frist.html">frist page</a></br>
+    <a id="a2" href="/forth.html">next page</a>
+</div>
+</body>
+</html>

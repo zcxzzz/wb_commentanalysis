@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评论用户不同年龄段的性别组成</title>
+    <script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/series-label.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/oldie.js"></script>
+    <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script type="text/css">
+        div.lay1{ 
+            width:460px; 
+            height:500px; 
+            float:left
+          }   
+         div.lay2{ 
+            width:460px; 
+            height:500px; 
+            float:left
+          }   
+          div.lay3{ 
+            width:460px; 
+            height:500px; 
+            float:left
+          }    
+    </script> -->
+</head>
+<body>
+<div id="div1" class="lay1" style="width: 460px;height: 600px;float: left;"></div>
+<script>
+    new Vue({
+        el:"#div1",
+        data(){
+            return {
+                data:null
+            }
+        },
+        mounted(){
+            const instance = axios({
+                post:'get',
+                url:'http://192.168.0.121:12580/weibo/llh'
+            })
+            instance.then(function (response){
+                console.log(response.data.data)
+                let data = response.data.data
+                Highcharts.chart('div1',{
+                    chart:{
+                        plotShadow:false,
+                        type:'pie'
+                    },
+                title:{
+                    text:'肖战某条微博评论00后用户性别组成',
+                    textColor:'blue'
+                },
+                tooltip:{
+                    ponitFormat:'{series.name}:<b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions:{
+                    pie:{
+                        allowPointSelect:true,
+                        cursor:'pointer',
+                        dataLables:{
+                            enabled:true,
+                            fromat: '<b>{point.name}</b>:{ponit.percentage*100:.1f}%',
+                            sytle: {
+                                color:(Highcharts.theme &&
+                                Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        },
+                        showInLegend:true
+                    }
+                },
+                series:[{
+                    name:'占比',
+                    colorByPoint:true,
+                    data:data
+                }]
+                });
+
+            })
+        }
+    })
+
+</script>
+<div id="div2" class="lay2" style="width: 460px;height: 600px;float: left;"></div>
+    <script>
+            new Vue({
+        el:"#div2",
+        data(){
+            return {
+                data:null
+            }
+        },
+        mounted(){
+            const instance = axios({
+                post:'get',
+                url:'http://192.168.0.121:12580/weibo/jlh'
+            })
+            instance.then(function (response){
+                console.log(response.data.data)
+                let data = response.data.data
+                Highcharts.chart('div2',{
+                    chart:{
+                        plotShadow:false,
+                        type:'pie'
+                    },
+                title:{
+                    text:'肖战某条微博评论90后用户性别组成',
+                    sytle:{
+                        color:"blue"
+                    }
+                },
+                // subtitle:{
+                //     text:'llh>00后,jlh>90后,blh>80后,qlh>70后,other>其他或未知'
+                // },
+                tooltip:{
+                    ponitFormat:'{series.name}:<b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions:{
+                    pie:{
+                        allowPointSelect:true,
+                        cursor:'pointer',
+                        dataLables:{
+                            enabled:true,
+                            fromat: '<b>{point.name}</b>:{ponit.percentage*100:.1f}%',
+                            sytle: {
+                                color:(Highcharts.theme &&
+                                Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        },
+                        showInLegend:true
+                    }
+                },
+                series:[{
+                    name:'占比',
+                    colorByPoint:true,
+                    data:data
+                }]
+                });
+
+            })
+        }
+    })
+</script>
+<div id="div3" class="lay3" style="width: 460px;height: 600px;float: left;"></div>
+<script>
+    new Vue({
+el:"#div3",
+data(){
+    return {
+        data:null
+    }
+},
+mounted(){
+    const instance = axios({
+        post:'get',
+        url:'http://192.168.0.121:12580/weibo/blh'
+    })
+    instance.then(function (response){
+        console.log(response.data.data)
+        let data = response.data.data
+        Highcharts.chart('div3',{
+            chart:{
+                plotShadow:false,
+                type:'pie'
+            },
+        title:{
+            text:'肖战某条微博评论80后用户性别组成',
+            sytle:{
+                color:"blue"
+            }
+        },
+        // subtitle:{
+        //     text:'llh>00后,jlh>90后,blh>80后,qlh>70后,other>其他或未知'
+        // },
+        tooltip:{
+            ponitFormat:'{series.name}:<b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions:{
+            pie:{
+                allowPointSelect:true,
+                cursor:'pointer',
+                dataLables:{
+                    enabled:true,
+                    fromat: '<b>{point.name}</b>:{ponit.percentage*100:.1f}%',
+                    sytle: {
+                        color:(Highcharts.theme &&
+                        Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                },
+                showInLegend:true
+            }
+        },
+        series:[{
+            name:'占比',
+            colorByPoint:true,
+            data:data
+        }]
+        });
+
+    })
+}
+})
+
+</script>
+
+
+
+<div id="div4" style="position:fixed; bottom:0; left: 700px;">
+    <a href="third.html">next page</a></br>
+    <a href="frist.html">frist page</a>
+
+</div>
+
+
+</body>
+</html>
