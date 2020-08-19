@@ -8,9 +8,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.121:3306/weibo?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql:
     username: root
-    password: Root@123
+    password: 
     druid:
       validation-query: SELECT 1 FROM DUAL
       initial-size: 10
